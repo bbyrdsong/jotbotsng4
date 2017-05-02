@@ -1,0 +1,63 @@
+header{
+    background: linear-gradient(#ececec, #b9b8b8);    
+}
+header .logo{
+    width: 1160px;
+    margin: 0 auto;
+    min-height: 60px;
+}
+header .logo a{
+    display: inline-block;
+    margin-top: 6px;    
+}
+nav{
+    background: #444;
+}
+nav section{
+    width: 1140px;
+    margin: 0 auto;
+}
+nav section a{
+    display: inline-block;
+    line-height: 35px;
+    padding: 4px 20px 0 20px;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 4px solid #444;
+    font-size: 12px;
+}
+nav section a:hover, nav section a.active{
+    background: #ea8513;
+    color: #fff;
+    border-bottom: 4px solid #dc5707;
+}
+.ng-valid[required],
+.ng-valid.required {
+    border-left: 5px solid #42A948;
+    /* green */
+}
+
+.ng-invalid:not(form) {
+    border-left: 5px solid #a94442;
+    /* red */
+}
+
+.row {
+    margin-top: 10px;
+}
+
+@media screen and (min-width: 600px) {
+    .nav li {
+        width: 150px;
+        border-bottom: none;
+        height: 50px;
+        line-height: 50px;
+        font-size: 1.4em;
+    }
+    .nav li {
+        display: inline-block;
+        margin-right: -4px;
+    }
+}
