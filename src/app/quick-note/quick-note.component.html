@@ -1,0 +1,51 @@
+<section class="container">
+    <h2>{{sectionTitle}}</h2>
+
+    <section class="row" *ngIf="!showForm">
+        <div class="col-md-3">
+            <input type="text" placeholder="filter" class="form-control" [(ngModel)]="filter" name="filter" id="filter" />
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary" (click)="add()">Add</button>
+        </div>
+    </section>
+
+    <section class="row" *ngIf="showForm">
+        <form #f="ngForm" (ngSubmit)="save(f, $event)">
+            <fieldset class="col-md-3">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="model.name" #name="ngModel" required maxlength="12" />
+                    <div *ngIf="name.touched && name.errors">
+                        <div *ngIf="name.errors.required" class="alert alert-warning">
+                            Name required.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Note</label>
+                    <textarea class="form-control" id="description" name="description" [(ngModel)]="model.description" #description="ngModel" required minlength="5"></textarea>
+                    <div *ngIf="description.touched && description.errors">
+                        <div *ngIf="description.errors.required" class="alert alert-warning">
+                            Quick note required.
+                        </div>
+                        <div *ngIf="description.errors.minlength" class="alert alert-warning">
+                            Quick note should be minimum 5 characters.
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+                <button type="button" class="btn btn-default" (click)="showForm = false">Cancel</button>
+            </fieldset>
+        </form>
+    </section>
+
+    <section class="row">
+        <div class="quicknote-card" *ngFor="let note of (dbSet | sortObjArrBy: 'name' | filter: filter)">
+            <a href="#" (click)="edit(note, $event)">edit</a>
+            <a href="#" class="pull-right" (click)="delete(note, $event)">x</a>
+            <h4>{{note.name}}</h4>
+            <div class="body scrollable">{{note.description}}</div>
+        </div>
+    </section>
+</section>
