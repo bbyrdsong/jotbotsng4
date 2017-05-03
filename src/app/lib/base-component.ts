@@ -25,12 +25,13 @@ export class BaseComponent<T extends BaseModel> implements OnInit {
     save(event: Event): void {
         this.handleEvent(event);
         this.repository.save(this.model).subscribe(
-            data => console.log(data),
+            data => {
+                console.log(data);
+                this.showForm = false;
+                this.get();
+            },
             error => alert(error)
         );
-
-        this.get();
-        this.showForm = false;
     }
 
     add(): void {
@@ -50,10 +51,13 @@ export class BaseComponent<T extends BaseModel> implements OnInit {
 
         if (confirm('Are you sure you want to delete this record?')) {
             this.repository.delete(model.id).subscribe(
-                data => console.log('delete action', data),
+                data => {
+                    console.log('delete action', data);
+                    this.showForm = false;
+                    this.get();
+                },
                 error => alert(error)
             );
-            this.get();
         }
     }
 

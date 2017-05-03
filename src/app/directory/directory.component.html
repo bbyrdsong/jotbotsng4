@@ -73,6 +73,7 @@
         </div>
         <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
         <button type="button" class="btn btn-default" (click)="showForm = false">Cancel</button>
+            <button type="button" class="btn btn-danger" (click)="delete(model, $event)">Delete</button>
       </fieldset>
     </form>
   </section>
@@ -94,8 +95,7 @@
       <tbody>
         <tr *ngFor="let contact of (dbSet | sortObjArrBy: 'name' | filterName: filter)">
           <td>
-            <button type="button" class="btn btn-info" (click)="edit(contact, $event)">edit</button>
-            <button type="button" class="btn btn-warning" (click)="delete(contact, $event)">delete</button>
+            <button type="button" class="btn btn-info" (click)="edit(contact, $event)">Edit</button>
           </td>
           <td>{{contact.name}}</td>
           <td>{{contact.phone}}</td>
