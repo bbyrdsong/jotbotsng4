@@ -1,11 +1,14 @@
-import { IUnitOfWork } from './iunitofwork';
+import { BaseModel } from './base-model';
+import { IRepository } from './irepository';
 import { OnInit } from '@angular/core/core';
-export class BaseComponent<T extends any> implements OnInit {
+import { Observable } from 'rxjs/Observable';
+
+export class BaseComponent<T extends BaseModel> implements OnInit {
     dbSet: any[];
     model: any;
     showForm = false;
 
-    constructor(private uow: IUnitOfWork, private tableName: string, public sectionTitle: string) { }
+    constructor(private repository: IRepository<T>, public sectionTitle: string) { }
 
     ngOnInit(): void {
         this.model = {};
@@ -13,17 +16,19 @@ export class BaseComponent<T extends any> implements OnInit {
     }
 
     get(): void {
-        this.dbSet = this.uow[this.tableName].getAll();
+        this.repository.getAll().subscribe(
+            data => this.dbSet = data,
+            error => alert(error)
+        );
     }
 
     save(event: Event): void {
         this.handleEvent(event);
 
-        if (this.model.id) {
-            this.uow[this.tableName].update(this.model);
-        } else {
-            this.uow[this.tableName].insert(this.model);
-        }
+        this.repository.save(this.model).subscribe(
+            data => console.log(data),
+            error => alert(error)
+        );
 
         this.get();
         this.showForm = false;
@@ -44,7 +49,10 @@ export class BaseComponent<T extends any> implements OnInit {
     delete(model: T, event: Event) {
         this.handleEvent(event);
 
-        this.uow[this.tableName].delete(model.id);
+        this.repository.delete(model.id).subscribe(
+            data => console.log('delete action', data),
+            error => alert(error)
+        );
         this.get();
     }
 

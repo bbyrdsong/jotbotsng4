@@ -11,7 +11,7 @@
     </section>
 
     <section class="row" *ngIf="showForm">
-        <form #f="ngForm" (ngSubmit)="save(f, $event)">
+        <form #f="ngForm" (ngSubmit)="save($event)">
             <fieldset class="col-md-3">
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -40,8 +40,8 @@
         </form>
     </section>
 
-    <section class="row">
-        <div class="quicknote-card" *ngFor="let note of (dbSet | sortObjArrBy: 'name' | filter: filter)">
+    <section class="row" *ngIf="dbSet">
+        <div class="quicknote-card" *ngFor="let note of (dbSet | sortObjArrBy: 'name' | filterName: filter)">
             <a href="#" (click)="edit(note, $event)">edit</a>
             <a href="#" class="pull-right" (click)="delete(note, $event)">x</a>
             <h4>{{note.name}}</h4>

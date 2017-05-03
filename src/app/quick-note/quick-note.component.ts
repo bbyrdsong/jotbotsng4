@@ -1,3 +1,6 @@
+import { QuickNote } from './quick-note';
+import { QuickNoteRepositoryService } from './quick-note-repository.service';
+import { BaseComponent } from '../lib/base-component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,11 +8,10 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './quick-note.component.html',
   styleUrls: ['./quick-note.component.css']
 })
-export class QuickNoteComponent implements OnInit {
+export class QuickNoteComponent extends BaseComponent<QuickNote> {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(repository: QuickNoteRepositoryService) {
+    super(repository, 'Quick Notes');
   }
 
 }
