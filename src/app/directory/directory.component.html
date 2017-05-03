@@ -1,0 +1,111 @@
+<section class="container">
+  <h2>{{sectionTitle}}</h2>
+
+  <section class="row" *ngIf="!showForm && dbSet">
+    <div class="col-md-3">
+      <input type="text" id="filter" name="filter" placeholder="filter" class="form-control" [(ngModel)]="filter" />
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-primary" (click)="add()">Add</button>
+    </div>
+  </section>
+
+  <section class="row" *ngIf="showForm">
+    <form #f="ngForm" (ngSubmit)="save($event)">
+      <fieldset class="col-md-3">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="model.name" #name="ngModel" required
+            placeholder="name" />
+          <div *ngIf="name.touched && name.errors">
+            <div *ngIf="name.errors.required" class="alert alert-warning">
+              Name required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" id="email" name="email" [(ngModel)]="model.email" #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            placeholder="email" />
+          <div *ngIf="email.touched && email.errors">
+            <div *ngIf="email.errors.pattern" class="alert alert-warning">
+              Email not valid. Please use name@domain.[ext] format.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="model.phone" #phone="ngModel" minlength="10"
+            maxlength="14" placeholder="(###)-###-####" />
+          <div *ngIf="phone.touched && phone.errors">
+            <div *ngIf="phone.errors.minlength || phone.errors.maxlength" class="alert alert-warning">
+              Phone not valid. Use (###)-###-#### format.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="group">Group</label>
+          <input type="text" class="form-control" id="group" name="group" [(ngModel)]="model.group" #group="ngModel" />
+        </div>
+        <div class="form-group">
+          <label for="facebook">Facebook</label>
+          <input type="text" class="form-control" id="facebook" name="facebook" [(ngModel)]="model.facebook" #facebook="ngModel" />
+          <div *ngIf="model.facebook">
+            test it! 
+            <a [href]="'https://facebook.com/' + model.facebook" target="_blank">
+              {{ 'https://facebook.com/' + model.facebook }}
+            </a>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="twitter">Twitter</label>
+          <input type="text" class="form-control" id="twitter" name="twitter" [(ngModel)]="model.twitter" #twitter="ngModel" />
+          <div *ngIf="model.twitter">
+            test it! 
+            <a [href]="'https://twitter.com/' + model.twitter" target="_blank">
+              {{ 'https://twitter.com/' + model.twitter }}
+            </a>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description">Notes</label>
+          <textarea class="form-control" id="description" name="description" [(ngModel)]="model.description" #description="ngModel"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+        <button type="button" class="btn btn-default" (click)="showForm = false">Cancel</button>
+      </fieldset>
+    </form>
+  </section>
+
+  <section class="row" *ngIf="dbSet">
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Facebook</th>
+          <th>Twitter</th>
+          <th>Group</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contact of (dbSet | sortObjArrBy: 'name' | filterName: filter)">
+          <td>
+            <button type="button" class="btn btn-info" (click)="edit(contact, $event)">edit</button>
+            <button type="button" class="btn btn-warning" (click)="delete(contact, $event)">delete</button>
+          </td>
+          <td>{{contact.name}}</td>
+          <td>{{contact.phone}}</td>
+          <td><span *ngIf="contact.email"><a [href]="'mailto:' + contact.email">{{ contact.email }}</a></span></td>
+          <td><span *ngIf="contact.facebook"><a [href]="'https://facebook.com/' + contact.facebook" target="_blank">{{ contact.facebook }}</a></span></td>          
+          <td><span *ngIf="contact.twitter"><a [href]="'https://twitter.com/' + contact.twitter" target="_blank">{{ contact.twitter }}</a></span></td>
+          <td>{{contact.group}}</td>
+          <td>{{contact.description}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</section>

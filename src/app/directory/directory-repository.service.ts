@@ -1,11 +1,13 @@
 import { LocalStorageDbService } from '../services/local-storage-db.service';
-import { QuickNoteModel } from './quick-note-model';
 import { BaseRepository } from '../lib/base-repository';
 import { Injectable } from '@angular/core';
+import { DirectoryModel } from './directory-model';
 
 @Injectable()
-export class QuickNoteRepositoryService extends BaseRepository<QuickNoteModel> {
+export class DirectoryRepositoryService extends BaseRepository<DirectoryModel> {
+
   constructor(context: LocalStorageDbService) {
-    super(context, 'quicknotes');
-  }
- }
+    super(context, 'directory');
+   }
+
+}

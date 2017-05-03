@@ -10,25 +10,30 @@ import { AppComponent } from './app.component';
 import { QuickNoteComponent } from './quick-note/quick-note.component';
 import { FilterNamePipe } from './shared/filter-name.pipe';
 import { SortObjArrByPipe } from './shared/sort-obj-arr-by.pipe';
+import { DirectoryComponent } from './directory/directory.component';
+import { DirectoryRepositoryService } from './directory/directory-repository.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuickNoteComponent,
     FilterNamePipe,
-    SortObjArrByPipe
+    SortObjArrByPipe,
+    DirectoryComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot([
-      { path: 'quicknotes', component: QuickNoteComponent }
+      { path: 'quicknotes', component: QuickNoteComponent },
+      { path: 'directory', component: DirectoryComponent }
     ])
   ],
   providers: [
     LocalStorageDbService,
-    QuickNoteRepositoryService
+    QuickNoteRepositoryService,
+    DirectoryRepositoryService
   ],
   bootstrap: [AppComponent]
 })

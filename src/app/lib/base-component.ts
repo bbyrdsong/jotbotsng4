@@ -48,11 +48,13 @@ export class BaseComponent<T extends BaseModel> implements OnInit {
     delete(model: T, event: Event) {
         this.handleEvent(event);
 
-        this.repository.delete(model.id).subscribe(
-            data => console.log('delete action', data),
-            error => alert(error)
-        );
-        this.get();
+        if (confirm('Are you sure you want to delete this record?')) {
+            this.repository.delete(model.id).subscribe(
+                data => console.log('delete action', data),
+                error => alert(error)
+            );
+            this.get();
+        }
     }
 
     private handleEvent(event: Event) {

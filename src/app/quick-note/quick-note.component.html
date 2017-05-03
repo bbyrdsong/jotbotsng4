@@ -1,12 +1,19 @@
 <section class="container">
     <h2>{{sectionTitle}}</h2>
 
-    <section class="row" *ngIf="!showForm">
+    <section class="row" *ngIf="!showForm && dbSet">
         <div class="col-md-3">
-            <input type="text" placeholder="filter" class="form-control" [(ngModel)]="filter" name="filter" id="filter" />
+            <input type="text" 
+                id="filter" 
+                name="filter" 
+                placeholder="filter" 
+                class="form-control" 
+                [(ngModel)]="filter" />
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-primary" (click)="add()">Add</button>
+            <button type="button" 
+                class="btn btn-primary" 
+                (click)="add()">Add</button>
         </div>
     </section>
 
@@ -15,7 +22,14 @@
             <fieldset class="col-md-3">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="model.name" #name="ngModel" required maxlength="12" />
+                    <input type="text" 
+                        class="form-control" 
+                        id="name" 
+                        name="name" 
+                        [(ngModel)]="model.name" 
+                        #name="ngModel" 
+                        required 
+                        maxlength="12" />
                     <div *ngIf="name.touched && name.errors">
                         <div *ngIf="name.errors.required" class="alert alert-warning">
                             Name required.
@@ -24,7 +38,13 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Note</label>
-                    <textarea class="form-control" id="description" name="description" [(ngModel)]="model.description" #description="ngModel" required minlength="5"></textarea>
+                    <textarea class="form-control" 
+                        id="description" 
+                        name="description" 
+                        [(ngModel)]="model.description" 
+                        #description="ngModel" 
+                        required 
+                        minlength="5"></textarea>
                     <div *ngIf="description.touched && description.errors">
                         <div *ngIf="description.errors.required" class="alert alert-warning">
                             Quick note required.
